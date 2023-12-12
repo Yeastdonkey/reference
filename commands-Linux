@@ -1,0 +1,14 @@
+df -h    # list system drive capacity
+watch    # repeats command
+rsync -r --info=progress2 <source> <destination>    # rsync with overall progress bar, -r = recursive
+shutdown -h now    # shutsdown server. Can restart with -r instead
+wipefs -a /dev/DEVICE    # wipes the filesystem on a drive. Useful for removing paritions for pvcreate
+mkfs.ext4 /dev/DEVICE    # makes ext4 filesystem on a drive
+du -h <directory>/    # gets size of directory. "/" makes in include directory
+scp <host_file> user@targethost:targetfile    # can use $env:USERPROFILE on windows
+visudo    # edit the /etc/sudoers file. Ensure to save without ".temp"
+docker exec -i minecraft-vanilla-survival rcon-cli    # Access rcon CLI via terminal
+ln -s <target_path> <link_path>    # makes symlink. Use full path
+ssh-keygen -t ed25519 -C "comment"    # generates SSH key
+docker run --name netshoot --rm -it --network nginx-proxy-manager nicolaka/netshoot /bin/bash
+scp ~/klipper/out/klipper.bin "C:\Users\rasha\Desktop
