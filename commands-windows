@@ -1,0 +1,2 @@
+# files
+CertUtil -hashfile [file] SHA256    # generates sha256 checksum. download util from https://www.gnupg.org/download/index.html
