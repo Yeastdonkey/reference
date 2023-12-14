@@ -1,14 +1,49 @@
-df -h    # list system drive capacity
+# filesystem
+df -h   # list system drive capacity
+    -a, --all
+    -h, --human-readable
+du -h [directory]    # gets size of directory. ending in "/" makes in include  the directory
+    -a, --all
+    -h, --human-readable
+mkfs [device]
+    -t, --type    # E.g. ext4
+wipefs [device]    # wipes the filesystem on a drive. useful for removing paritions for pvcreate
+    -a, --all
+    -b, --backup    # creates signature backup to ~/wipefs-<devname>-<offset>.bak
+    -f, --force
+    -n, --no-act    # trial run without actual erasure
+
+
+# files
+rsync [source] [destination]    # syncs source files to destination files
+    -r, --recursive
+    --info=progress2    # adds overall progress bar
+ln [target_path] [link_path]    # makes file link
+    -f, --force    # removes existing destination files
+    -i, --interactive    # prompts whether to remove existing destination files
+    -s, --symbolic    # makes symbolic link
+scp [host_file] user@targethost:targetfile    # secure copy file
+    -i [identify_file]
+    -P [port]
+    -r    # recursively copy files
+    -s    # use sftp protocol instead of scp
+
+
+# general commands
+shutdown [time]    # shutsdown server. time in hh:mm format or "+m" where m=minute. "now" is alias for "+0"
+    -r, --reboot
+reboot
+    -f, --force    # immediate clean shutdown via system manager. specified twice = immediate shutdown without system manager
 watch    # repeats command
-rsync -r --info=progress2 <source> <destination>    # rsync with overall progress bar, -r = recursive
-shutdown -h now    # shutsdown server. Can restart with -r instead
-wipefs -a /dev/DEVICE    # wipes the filesystem on a drive. Useful for removing paritions for pvcreate
-mkfs.ext4 /dev/DEVICE    # makes ext4 filesystem on a drive
-du -h <directory>/    # gets size of directory. "/" makes in include directory
-scp <host_file> user@targethost:targetfile    # can use $env:USERPROFILE on windows
+    -d, --differences[=permanent]    # highlights difference between successive updates. optional "permanent" will show all changes from first iteration
+    -n, --interval [seconds]
 visudo    # edit the /etc/sudoers file. Ensure to save without ".temp"
-docker exec -i minecraft-vanilla-survival rcon-cli    # Access rcon CLI via terminal
-ln -s <target_path> <link_path>    # makes symlink. Use full path
 ssh-keygen -t ed25519 -C "comment"    # generates SSH key
-docker run --name netshoot --rm -it --network nginx-proxy-manager nicolaka/netshoot /bin/bash
-scp ~/klipper/out/klipper.bin "C:\Users\rasha\Desktop
+    -C [comment]
+    -f [filename]
+    -t [type]    # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
+
+
+# docker
+docker exec -i minecraft-vanilla-survival rcon-cli    # access minecraft rcon cli via terminal
+docker run --name netshoot --rm -it --network [network] nicolaka/netshoot /bin/bash    # creates a container in [network] that has useful networking tools built in. useful for diagnosing network issues then removing
