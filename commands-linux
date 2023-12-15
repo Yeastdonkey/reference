@@ -1,49 +1,62 @@
-# filesystem
-df -h   # list system drive capacity
+### filesystem
+df -h               # list system drive capacity
     -a, --all
     -h, --human-readable
-du -h [directory]    # gets size of directory. ending in "/" makes in include  the directory
+du -h [directory]   # gets size of directory. ending in "/" makes in include  the directory
     -a, --all
     -h, --human-readable
 mkfs [device]
-    -t, --type    # E.g. ext4
-wipefs [device]    # wipes the filesystem on a drive. useful for removing paritions for pvcreate
+    -t, --type      # e.g. ext4
+wipefs [device]     # wipes the filesystem on a drive. useful for removing paritions for pvcreate
     -a, --all
     -b, --backup    # creates signature backup to ~/wipefs-<devname>-<offset>.bak
     -f, --force
     -n, --no-act    # trial run without actual erasure
 
 
-# files
+### files
 rsync [source] [destination]    # syncs source files to destination files
     -r, --recursive
-    --info=progress2    # adds overall progress bar
+    --info=progress2            # adds overall progress bar
 ln [target_path] [link_path]    # makes file link
-    -f, --force    # removes existing destination files
-    -i, --interactive    # prompts whether to remove existing destination files
-    -s, --symbolic    # makes symbolic link
+    -f, --force                 # removes existing destination files
+    -i, --interactive           # prompts whether to remove existing destination files
+    -s, --symbolic              # makes symbolic link
 scp [host_file] user@targethost:targetfile    # secure copy file
     -i [identify_file]
     -P [port]
-    -r    # recursively copy files
-    -s    # use sftp protocol instead of scp
+    -r              # recursively copy files
+    -s              # use sftp protocol instead of scp
 
 
-# general commands
+### general commands
 shutdown [time]    # shutsdown server. time in hh:mm format or "+m" where m=minute. "now" is alias for "+0"
     -r, --reboot
 reboot
     -f, --force    # immediate clean shutdown via system manager. specified twice = immediate shutdown without system manager
-watch    # repeats command
-    -d, --differences[=permanent]    # highlights difference between successive updates. optional "permanent" will show all changes from first iteration
+apt, nala
+    update          # update package repository lists
+    upgrade         # install package upgrades & dependencies. NEVER removes packages or dependencies
+    full-upgrade    # same as upgrade but removes packages or dependencies if necessary (e.g. conflict)
+    install
+    reinstall
+    remove          # removes all packaged data but leaves small modified user config files
+    purge           # same as remove but also removes configs. does not affect data stored in ~
+    autoremove      # removes packages installed as dependencies but are no longer needed. verify before with `apt mark`
+    search          # search via regex for matching packages in repo source.list
+    show            # shows info about specified package
+    list            # lists packages satisfying specified criteria (--installed, --upgradable, --all-versions)
+    edit-sources    # edit source.list. provides basic sanity checks
+watch                               # repeats command
+    -d, --differences[=permanent]   # highlights difference between successive updates. optional "permanent" will show all changes from first iteration
     -n, --interval [seconds]
-visudo    # edit the /etc/sudoers file. Ensure to save without ".temp"
-ssh-keygen -t ed25519 -C "comment"    # generates SSH key
+visudo                              # edit the /etc/sudoers file. Ensure to save without ".temp"
+ssh-keygen -t ed25519 -C "comment"  # generates SSH key
     -C [comment]
     -f [filename]
-    -t [type]    # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
+    -t [type]       # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
 
 
-# docker
-docker exec -i minecraft-vanilla-survival rcon-cli    # access minecraft rcon cli via terminal
-docker run --name netshoot --rm -it --network [network] nicolaka/netshoot /bin/bash    # creates a container in [network] that has useful networking tools built in. useful for diagnosing network issues then removing
+### docker
+docker exec -i minecraft-vanilla-survival rcon-cli                                      # access minecraft rcon cli via terminal
+docker run --name netshoot --rm -it --network [network] nicolaka/netshoot /bin/bash     # creates a container in [network] that has useful networking tools built in. useful for diagnosing network issues then removing
