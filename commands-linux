@@ -27,7 +27,13 @@ scp [host_file] user@targethost:targetfile    # secure copy file
     -P [port]
     -r              # recursively copy files
     -s              # use sftp protocol instead of scp
-
+rm [file]
+    -f, --force
+    -i              # prompt before every removal
+    -I              # prompt before removal >3 or -r
+    -r, -R, --recursive
+    -d, --dir       # removes empty directories
+find . -depth -name "[name]" -print     # searches current directory for file and prints to console. can change to -delete
 
 ### general commands
 shutdown [time]    # shutsdown server. time in hh:mm format or "+m" where m=minute. "now" is alias for "+0"
