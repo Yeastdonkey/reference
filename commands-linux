@@ -62,6 +62,12 @@ ssh-keygen -t ed25519 -C "comment"  # generates SSH key
     -f [filename]
     -t [type]       # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
 
+### monitoring
+    sensors         # shows current sensor temperatures (good to combine with `watch`)
+    s-tui           # shows graphs of CPU usage, sensor temperatures, and core frequencies
+    stress          # stress-tests components
+        -c, --cpu       # spawns N workers spinning on sqrt()
+        -t, --timeout   # timeout after N seconds
 
 ### docker
 docker exec -i minecraft-vanilla-survival rcon-cli                                      # access minecraft rcon cli via terminal
