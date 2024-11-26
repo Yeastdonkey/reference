@@ -35,6 +35,25 @@ rm [file]
     -d, --dir       # removes empty directories
 find . -depth -name "[name]" -print     # searches current directory for file and prints to console. can change to -delete
 
+### user/group management
+useradd [user]
+    -c, --comment [comment]         # use single quote ('comment'), often used for user's full name
+    -e, --expiredate [date]         # format YYYY-MM-DD
+    -g, --gid [group]               # can be group name or GID, must exist
+    -G, -groups [group1,group2]     # same as above ^
+    -m, --create-home               # create user home directory, disabled by default
+    -M, --no-create-home            # prevents creation of user home directory
+    -N, --no-user-group             # prevents creation of group with same name as user, must be used with -g or -G
+    -r, --system                    # creates a system account (UID <1000), does not create a home directory unless -m is used
+    -s, --shell [shell]             # default user shell (e.g., /bin/bash), uses default if not defined,
+    -u, --uid [uid]                 # defines UID, iterates by default
+    -U, --user-group                # create group with same name as user
+groupadd [group]
+    -g, --gid [GID]         # defines GID, iterates by default
+    -r, --system            # creates system group (GID <1000)
+getent passwd | awk -F: '{printf "%s | %s | %s | %s | '%s'\n",$3,$1,$2,$4,$5}' | sort -n | column -te -N UID,USER,PASS,GID,COMMENT -s "|" -o "|"    # lists all users and their UID, GID, and comment
+getent group | awk -F: '{printf "%s | %s | %s\n",$3,$1,$4, "GID", "GROUP NAME", "MEMBERS"}' | sort -n | column -te -N GID,GROUP,ADDITIONAL USERS -s "|" -o "|"   # list all groups and their members
+
 ### general commands
 shutdown [time]    # shutsdown server. time in hh:mm format or "+m" where m=minute. "now" is alias for "+0"
     -r, --reboot
