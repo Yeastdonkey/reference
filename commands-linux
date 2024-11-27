@@ -80,6 +80,7 @@ ssh-keygen -t ed25519 -C "comment"  # generates SSH key
     -C [comment]
     -f [filename]
     -t [type]       # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
+sudo resolvectl flush-caches    # flushes DNS cache
 
 ### monitoring
     sensors         # shows current sensor temperatures (good to combine with `watch`)
