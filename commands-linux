@@ -33,7 +33,44 @@ rm [file]
     -I              # prompt before removal >3 or -r
     -r, -R, --recursive
     -d, --dir       # removes empty directories
-find . -depth -name "[name]" -print     # searches current directory for file and prints to console. can change to -delete
+find [directory] [tests]    # can be piped into other commands (|)
+    -d, --depth             # process directory contents before directory itself. implied in -delete
+    -maxdepth [levels]      # how many directory levels to go down. 0 means starting points only
+    -mindepth [levels]      # how many directory levels to go down before finding. 0 means starting points only
+    -mount                  # prevents descending into directories on other filesystems
+   # tests (can use n [exact], +n [>n], or -n [<n])
+    -amin [n]               # file last accessed n minutes ago
+    -atime [n]              # file last access n*24hr ago
+    -group [gname]          # file's group name or numeric GID
+    -iname [pattern]        # same as -name but match is case-insensitive (fo* and F?? match Foo, FOO, foo, fOo, etc. *foo* will match .foo-bar
+    -lname [pattern]        # symbolic link of [pattern]
+    -mmin [n]               # file last modified n minutes ago
+    -mtime [n]              # file last modified n*24 hours ago
+    -name [pattern]         # file name. directory paths ignored.
+    -nogroup                # no group corresponds to file's GID
+    -nouser                 # no user corresponds to file's UID
+    -path                   # file path
+    -perm [mode]            # file permissions (octal or symbolic)
+    -readable               # matches files currently readable by current user (according to permissions)
+    -size [n]               # file size uses n units of space, indicated by: b=512-byte block, c=bytes, w=two-byte words, k=kibibytes (KiB, 1024 bytes), M=mebibytes (MiB, 1024² bytes), G=gibibytes (GiB, 1024³ bytes)
+    -type [c]               # file type, c meaning: b=block (buffered) special, c=character (unbuffered) special, d=directory, p=named pipe (FIFO), f=regular file, l=symbolic link, s=socket, D=door (Solaris). Can separate with comma
+    -user [uname]           # file's username or numeric UID
+    -writable               # matches files currently writable by current user (according to permissions)
+   # actions
+    -delete                 # when testing (before using -delete), specify -depth since it's implied in -delete and will change the output
+    -exec [command]         # executes [command] with the matching file as the argument. executed in the starting directory (security risk, use -execdir instead)
+    -execdir [command]      # same as -exec but executes in the subdirectory containing the matched file
+    -ls                     # run ls command
+    -print                  # print full file name to console followed by newline character
+    -print0                 # print full file name to console followed by null character
+    -printf [format]        # print [format] to console. see man page for all formats. does not add newline character at end of string
+    -f(ls,print/0/f) [file] # same as normal command but prints to [file]
+    -prune              # does not descend into directory. ignored if -depth or -delete is used.
+   # operators (can modify above flags, precedence in descending order)
+    ( [expr] )          # force precedence. protection needed `( expr )` or \( [expr] \)
+    ! [expr]            # not, protection needed
+    [expr1] [expr2]     # and, can also use -a between
+    [expr1] -o [expr2]  # or
 
 ### user/group management
 useradd [user]
