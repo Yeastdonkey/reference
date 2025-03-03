@@ -12,6 +12,7 @@ wipefs [device]     # wipes the filesystem on a drive. useful for removing parit
     -b, --backup    # creates signature backup to ~/wipefs-<devname>-<offset>.bak
     -f, --force
     -n, --no-act    # trial run without actual erasure
+fdisk [device]      # creates partitions on disk
 
 
 ### files
