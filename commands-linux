@@ -87,10 +87,20 @@ useradd [user]
     -u, --uid [uid]                 # defines UID, iterates by default
     -U, --user-group                # create group with same name as user
 groupadd [group]
-    -g, --gid [GID]         # defines GID, iterates by default
-    -r, --system            # creates system group (GID <1000)
-getent passwd | awk -F: '{printf "%s | %s | %s | %s | '%s'\n",$3,$1,$2,$4,$5}' | sort -n | column -te -N UID,USER,PASS,GID,COMMENT -s "|" -o "|"    # lists all users and their UID, GID, and comment
-getent group | awk -F: '{printf "%s | %s | %s\n",$3,$1,$4, "GID", "GROUP NAME", "MEMBERS"}' | sort -n | column -te -N GID,GROUP,ADDITIONAL USERS -s "|" -o "|"   # list all groups and their members
+    -g, --gid [GID]     # defines GID, iterates by default
+    -r, --system        # creates system group (GID <1000)
+gpasswd [option] [groupname]    # adds/removes users from groups
+    -a, --add [user]
+    -d, --delete [user]
+usermod [userName]
+    -G, --groups [GID]          # supplementary groups user is in, comma separated
+        -a                      # append user to supplementary groups (used with -G option)
+    -u, --uid [UID]             # new UID for user
+    -g, --gid [GID]             # new primary GID for user
+getent passwd | awk -F: '{printf "%s | %s | %s | %s | %s\n", $3, $1, $2, $4, $5}' | sort -n | column -te -N UID,USER,PASS,GID,COMMENT -s "|"   # lists all users and their UID, GID, and comment
+    -o "|"      # can add to column command to add vertical bars between columns
+getent group | awk -F: '{printf "%s | %s | %s\n", $3, $1, $4}' | sort -n | column -te -N GID,GROUP,ADDITIONAL_USERS -s "|"   # list all groups and their members
+    -o "|"      # can add to column command to add vertical bars between columns
 
 ### general commands
 shutdown [time]    # shutsdown server. time in hh:mm format or "+m" where m=minute. "now" is alias for "+0"
@@ -119,6 +129,21 @@ ssh-keygen -t ed25519 -C "comment"  # generates SSH key
     -f [filename]
     -t [type]       # dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa
 sudo resolvectl flush-caches    # flushes DNS cache
+column [file]                       # columnate lists
+    -c, --output-width [width]      # output width in number of characters
+    -o, --output-separator [string] # specify output delimiter, default is 2 spaces
+    -s, --separator [separators]    # possible input delimiters, default is whitespace
+    -d, --table-noheadings          # does not print with header
+    -t, --table                     # determines number of columns of input and creates a table, columns delimited by whitespace by default
+    -N, --table-columns [names]     # specify column names by comma-separated list of names, names used for table header
+    -n, --table-name [name]         # specifies table name
+    -R, --table-right [columns]     # aligns specified columns right
+    -W, --table-wrap [columns]      # specifies columns where line wrapping is allowed
+    -H, --table-hide [columns]      # hides specified columns, "-" will hide all unnammed columns
+    -O, --table-order [columns]     # specifies column order on output
+    -J, --json                      # json output format to print table. --table-columns is required, --table-name is recommended
+sort    # sorts lines of text files
+    -n  # numeric sort
 
 ### monitoring
     sensors         # shows current sensor temperatures (good to combine with `watch`)
